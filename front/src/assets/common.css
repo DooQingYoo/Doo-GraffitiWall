@@ -1,0 +1,58 @@
+pre code {
+    background-color: #2f2f2f;
+}
+
+pre {
+    background-color: #2f2f2f;
+    color: #e3e3e3;
+    font-size: 18px;
+    padding-left: 25px;
+}
+
+code {
+    background-color: #bfbfbf;
+    padding-left: 5px;
+    padding-right: 5px;
+    border-radius: 4px;
+    font-family: "JetBrains Mono", "Courier New", monospace;
+}
+
+body {
+    background-image: url('image/bg.png');
+    background-size: 100vw auto;
+    background-attachment: fixed;
+    color: #0f0f0f;
+}
+
+blockquote {
+    background-color: rgba(244, 244, 244, 0.4);
+    color: #4f4f4f;
+    padding-left: 40px;
+    margin-left: 20px;
+    margin-right: 20px;
+    border-left: solid 10px rgba(200, 200, 200, 0.6);
+}
+
+img {
+    max-width: 100%;
+}
+
+table, tr, td, th {
+    border: 1px solid #2f2f2f;
+}
+
+table {
+    border-collapse: collapse;
+}
+
+h1 {
+    font-weight: 800;
+}
+
+h2 {
+    font-weight: 700;
+}
+
+h3 {
+    font-weight: 600;
+}
