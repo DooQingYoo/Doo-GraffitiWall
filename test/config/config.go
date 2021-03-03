@@ -3,12 +3,16 @@ package config
 import (
 	"encoding/json"
 	"fmt"
+	"github.com/go-redis/redis"
 	"os"
 )
 
 type Conf struct {
-	Port int `json:"port"`
-	Path string `json:"path"`
+	Port     int            `json:"port"`
+	Path     string         `json:"path"`
+	User     string         `json:"user"`
+	Password string         `json:"password"`
+	Redis    *redis.Options `json:"redis"`
 }
 
 var Config = new(Conf)
