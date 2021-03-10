@@ -9,7 +9,6 @@ import (
 
 type Conf struct {
 	Port     int            `json:"port"`
-	Path     string         `json:"path"`
 	User     string         `json:"user"`
 	Password string         `json:"password"`
 	Redis    *redis.Options `json:"redis"`

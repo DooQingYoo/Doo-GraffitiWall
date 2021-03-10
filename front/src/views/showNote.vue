@@ -48,17 +48,22 @@ export default {
       });
     },
     async getNote(url) {
-      let response = await this.axios.get(url);
+      let text = await this.axiosGet(url);
       document.body.scrollTop = 0;
       document.documentElement.scrollTop = 0;
-      if (response) {
-        this.noteContent = this.md.render(response.data);
-      }
+      this.noteContent = this.md.render(text);
       let index = url.lastIndexOf('/');
       this.handleImage(url.substring(0, index + 1));
     },
-    handleImage(path) {
-      this.noteContent = this.noteContent.replace(/(<img.+src=")(.+?)"/g, '$1/api' + path + '$2"');
+    async handleImage(path) {
+      // this.noteContent = this.noteContent.replace(/(<img.+src=")(.+?)"/g, '$1/api' + path + '$2"');
+      const allMatches = this.noteContent.matchAll(/<img.+src="(.+?)"/g);
+      for (const match of allMatches) {
+        const url = path + match[1];
+        const base64Img = await this.axiosGet(url);
+        console.log(match[1]);
+        this.noteContent = this.noteContent.replace(match[1], base64Img);
+      }
     }
   },
   created() {

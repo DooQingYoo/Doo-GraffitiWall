@@ -61,7 +61,7 @@ func getFile(path string) (string, error) {
 		expire = imageExpireTime
 	} else {
 		content, err = returnDir(path)
-		expire = direcotryExpireTime
+		expire = directoryExpireTime
 	}
 
 	if err != nil {

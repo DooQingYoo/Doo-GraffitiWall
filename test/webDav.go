@@ -2,9 +2,11 @@
 package main
 
 import (
+	"encoding/base64"
 	"encoding/json"
 	"log"
 	"myProject/test/config"
+	"strings"
 	"studio-b12/gowebdav"
 )
 
@@ -15,8 +17,8 @@ var password string
 var client *gowebdav.Client
 
 type File struct {
-	Name string
-	Dir  bool
+	Name string `json:"name"`
+	Dir  bool   `json:"dir"`
 }
 
 /**
@@ -28,6 +30,7 @@ func returnMd(path string) (string, error) {
 	if err != nil {
 		return "", err
 	}
+
 	text := string(bytes)
 	saveLocal(path, text, markdownExpireTime)
 	return text, nil
@@ -37,7 +40,16 @@ func returnMd(path string) (string, error) {
  * 返回一个图片的base64格式
  */
 func returnBase64Image(path string) (string, error) {
-	return "", nil
+
+	bytes, err := client.Read(path)
+	if err != nil {
+		return "", err
+	}
+	imgType := path[strings.LastIndex(path, ".")+1:]
+
+	text := "data:image/" + imgType + ";base64," + base64.StdEncoding.EncodeToString(bytes)
+	saveLocal(path, text, imageExpireTime)
+	return text, nil
 }
 
 /**
@@ -61,7 +73,10 @@ func returnDir(path string) (string, error) {
 	if err != nil {
 		return "", err
 	}
-	return string(bytes), nil
+
+	text := string(bytes)
+	saveLocal(path, text, directoryExpireTime)
+	return text, nil
 }
 
 func init() {

@@ -5,14 +5,14 @@
         <a-menu-item key="book" style="border-bottom: 2px solid transparent;">
           <img src="@/assets/image/home.png"/>
         </a-menu-item>
-        <a-menu-item v-for="item in items" :key="item.key">{{ item.key }}</a-menu-item>
+        <a-menu-item v-for="item in items" :key="item.name">{{ item.name }}</a-menu-item>
       </a-menu>
     </a-affix>
-
   </div>
 </template>
 
 <script>
+
 export default {
   name: "Menu",
   data() {
@@ -22,15 +22,7 @@ export default {
   },
   methods: {
     async getMenuItems() {
-      let response = await this.axios.get('/_vnote.json');
-      if (response) {
-        let list = response.data.sub_directories;
-        for (let i = 0; i < list.length; i++) {
-          this.items.push({
-            key: list[i].name,
-          })
-        }
-      }
+      this.items = await this.axiosGet("/");
     },
     goTo(param) {
       if ('book' === param.key) {

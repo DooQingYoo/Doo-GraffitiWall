@@ -16,4 +16,7 @@ import 'ant-design-vue/dist/antd.css'
 import '@/assets/common.css'
 
 Axios.defaults.baseURL = '/api'
-createApp(App).use(store).use(router).use(VueAxios, Axios).use(Antd).mount('#app')
+
+import mixin from "@/mixin";
+
+createApp(App).use(store).use(router).use(VueAxios, Axios).use(Antd).mixin(mixin).mount('#app')

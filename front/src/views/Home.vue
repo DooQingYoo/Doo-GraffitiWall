@@ -2,7 +2,8 @@
   <div class="box">
     <h1>Hello World</h1>
     <p>学习笔记，工作笔记，其他感想，也许还会上传其他的。</p>
-    <p>不一定什么时候更新</p>
+    <p><del>不一定什么时候更新</del></p>
+    <p>实时更新哦</p>
     <p class="name">by @duqy@sitech</p>
     <img src="@/assets/image/decoration.png" alt="没了">
   </div>
@@ -11,10 +12,6 @@
 <script>
 export default {
   name: 'Home',
-  data() {
-    return {
-    }
-  },
   created() {
     document.title = "DooQY的涂鸦墙"
   }

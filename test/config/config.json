@@ -1,11 +1,10 @@
 {
-  "port": 44632,
-  "path": "C:\\坚果云\\vnote_notebooks\\vnotebook",
-  "user": "nick067611@163.com",
-  "password": "adkx42eive7k83ki",
+  "port": 8080,
+  "user": "xxxxxxxxxxxxxxxx",
+  "password": "xxxxxxxxxxxxxx",
   "redis": {
-    "Addr": "dqynb.ml:6379",
-    "Password": "Idrewaline4U3264",
+    "Addr": "xxxxxxxxxxxxxx",
+    "Password": "xxxxxxxxxxxxxxxx",
     "DB": 0
   }
 }

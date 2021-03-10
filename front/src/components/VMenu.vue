@@ -1,9 +1,9 @@
 <template>
   <a-menu mode="vertical" @click="getNote">
-    <a-sub-menu v-for="subMenu in subDir" :key="subMenu.key" :title="subMenu.key">
-      <a-menu-item v-for="item in subMenu.files" :key="item.key">{{ item.key }}</a-menu-item>
+    <a-sub-menu v-for="subMenu in subDir" :key="subMenu.name" :title="subMenu.name">
+      <a-menu-item v-for="item in subMenu.files" :key="item.name">{{ item.name }}</a-menu-item>
     </a-sub-menu>
-    <a-menu-item v-for="item in files" :key="item.key">{{ item.key }}</a-menu-item>
+    <a-menu-item v-for="item in files" :key="item.name">{{ item.name }}</a-menu-item>
   </a-menu>
 </template>
 
@@ -22,23 +22,32 @@ export default {
   methods: {
     async updateMenu(dir) {
       this.subDir = [];
-      let response = await this.axios.get('/' + dir + '/_vnote.json');
-      if (response) {
-        this.files = this.handleFiles(response.data.files);
-        let subDirectories = response.data.sub_directories;
-        for (let i = 0; i < subDirectories.length; i++) {
-          let key = subDirectories[i].name;
+      const list = await this.axiosGet("/" + dir);
+      // 竖向菜单的一级菜单
+      for (const element of list) {
+        // 拥有二级菜单
+        if (element.dir) {
           this.subDir.push({
-            key,
+            name: element.name,
             files: []
-          });
+          })
+          // 直接就是文件
+        } else {
+          this.files.push({
+            // 去掉 .md 后缀
+            name: element.name.substring(0, element.name.length - 3)
+          })
         }
-        for (let i = 0; i < this.subDir.length; i++) {
-          let key = this.subDir[i].key;
-          let subResponse = await this.axios.get('/' + dir + '/' + key + '/_vnote.json');
-          if (subResponse) {
-            this.subDir[i].files = this.handleFiles(subResponse.data.files);
-          }
+      }
+
+      // 逐个查询二级菜单的内容
+      for (const element of this.subDir) {
+        const key = element.name;
+        const list = await this.axiosGet(`/${dir}/${key}`);
+        for (const listEle of list) {
+          element.files.push({
+            name: listEle.name.substring(0, listEle.name.length - 3)
+          })
         }
       }
     },
@@ -51,21 +60,6 @@ export default {
       document.title = param.keyPath[0];
       this.$emit('changeNote', url);
     },
-    handleFiles(allFiles) {
-      let files = [];
-      for (let i = 0; i < allFiles.length; i++) {
-        let name;
-        if (allFiles[i].name.endsWith(".md")) {
-          name = allFiles[i].name.substring(0, allFiles[i].name.length - 3);
-        } else {
-          name = allFiles[i].name;
-        }
-        files.push({
-          key: name,
-        });
-      }
-      return files;
-    }
   },
   watch: {
     directory(newVal) {
@@ -73,9 +67,6 @@ export default {
     }
   },
   mounted() {
-    while (this.directory === '') {
-      console.log('empty');
-    }
     this.updateMenu(this.directory);
   }
 }

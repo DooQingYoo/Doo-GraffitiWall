@@ -12,7 +12,7 @@ import (
 const (
 	markdownExpireTime  = time.Hour
 	imageExpireTime     = 24 * time.Hour
-	direcotryExpireTime = 30 * time.Minute
+	directoryExpireTime = 30 * time.Minute
 )
 
 var redisClt *redis.Client
