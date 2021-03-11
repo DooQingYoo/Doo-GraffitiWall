@@ -2,12 +2,12 @@
 package main
 
 import (
+	"./config"
 	"encoding/base64"
 	"encoding/json"
+	"github.com/studio-b12/gowebdav"
 	"log"
-	"myProject/test/config"
 	"strings"
-	"studio-b12/gowebdav"
 )
 
 const url = "https://dav.jianguoyun.com/dav/"

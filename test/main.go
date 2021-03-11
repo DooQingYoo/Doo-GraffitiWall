@@ -1,8 +1,8 @@
 package main
 
 import (
+	"./config"
 	"log"
-	"myProject/test/config"
 	"net/http"
 	"strconv"
 	"strings"
@@ -13,7 +13,7 @@ func main() {
 	port := config.Config.Port
 	http.HandleFunc("/notes/", handler)
 
-	err := http.ListenAndServe(":"+strconv.Itoa(port), nil)
+	err := http.ListenAndServe("127.0.0.1:"+strconv.Itoa(port), nil)
 	if err != nil {
 		log.Fatal(err.Error())
 	}
@@ -60,6 +60,7 @@ func getFile(path string) (string, error) {
 		content, err = returnBase64Image(path)
 		expire = imageExpireTime
 	} else {
+		// 请求一个目录
 		content, err = returnDir(path)
 		expire = directoryExpireTime
 	}
