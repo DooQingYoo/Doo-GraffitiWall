@@ -3,9 +3,9 @@
 package main
 
 import (
-	"./config"
 	"github.com/go-redis/redis"
 	"log"
+	"myProject/test/config"
 	"time"
 )
 

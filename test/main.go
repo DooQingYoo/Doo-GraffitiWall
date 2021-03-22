@@ -1,8 +1,8 @@
 package main
 
 import (
-	"./config"
 	"log"
+	"myProject/test/config"
 	"net/http"
 	"strconv"
 	"strings"

@@ -18,7 +18,9 @@ code {
 }
 
 body {
-    background-image: url('image/bg.png');
+    /*background-image: url('image/bg.png');*/
+    background-repeat: no-repeat;
+    background-position: top;
     background-size: 100vw auto;
     background-attachment: fixed;
     color: #0f0f0f;
